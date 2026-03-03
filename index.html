@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ibrahim Malik Omolade — Cloud Engineer</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+
+:root {
+  --bg: #f7f6f2;
+  --surface: #ffffff;
+  --ink: #1a1a18;
+  --muted: #6b6b65;
+  --accent: #2563eb;
+  --accent-light: #dbeafe;
+  --border: #e4e3dc;
+  --tag-bg: #f0f0eb;
+  --green: #16a34a;
+  --green-light: #dcfce7;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  background: rgba(247,246,242,0.92);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 48px; height: 60px;
+}
+.nav-logo {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px; font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; list-style: none; }
+.nav-links a {
+  font-size: 13px; font-weight: 500;
+  color: var(--muted); text-decoration: none;
+  letter-spacing: 0.04em;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--ink); }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: flex; align-items: center;
+  padding: 100px 48px 80px;
+  max-width: 1100px; margin: 0 auto;
+  position: relative;
+}
+.hero-inner { max-width: 680px; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--accent-light);
+  color: var(--accent);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  padding: 6px 14px; border-radius: 100px;
+  margin-bottom: 32px;
+  opacity: 0; animation: fadeUp 0.6s 0.1s ease forwards;
+}
+.hero-badge::before {
+  content: '';
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(0.8); }
+}
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(42px, 6vw, 72px);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  margin-bottom: 24px;
+  opacity: 0; animation: fadeUp 0.7s 0.25s ease forwards;
+}
+h1 em { font-style: italic; color: var(--accent); }
+.hero-bio {
+  font-size: 17px; color: var(--muted); line-height: 1.75;
+  max-width: 520px;
+  opacity: 0; animation: fadeUp 0.7s 0.4s ease forwards;
+}
+.hero-cta {
+  margin-top: 40px; display: flex; gap: 16px; flex-wrap: wrap;
+  opacity: 0; animation: fadeUp 0.7s 0.55s ease forwards;
+}
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 12px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: 500;
+  text-decoration: none; cursor: pointer;
+  transition: all 0.2s; border: none;
+}
+.btn-primary { background: var(--ink); color: white; }
+.btn-primary:hover { background: #333; transform: translateY(-1px); }
+.btn-outline {
+  background: transparent; color: var(--ink);
+  border: 1.5px solid var(--border);
+}
+.btn-outline:hover { border-color: var(--ink); transform: translateY(-1px); }
+
+.hero-dots {
+  position: absolute; right: 48px; top: 50%;
+  transform: translateY(-50%);
+  display: grid; grid-template-columns: repeat(6,1fr); gap: 10px;
+  opacity: 0.15;
+}
+.hero-dots span {
+  width: 4px; height: 4px; border-radius: 50%;
+  background: var(--ink); display: block;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── SECTIONS ── */
+section {
+  max-width: 1100px; margin: 0 auto;
+  padding: 100px 48px;
+  border-top: 1px solid var(--border);
+}
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 48px;
+  display: flex; align-items: center; gap: 12px;
+}
+.section-label::after {
+  content: ''; flex: 1; height: 1px; background: var(--border);
+}
+
+/* ── SKILLS ── */
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+.skill-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.skill-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+.skill-icon {
+  width: 36px; height: 36px; border-radius: 8px;
+  background: var(--accent-light);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 18px; margin-bottom: 16px;
+}
+.skill-card h3 {
+  font-size: 14px; font-weight: 600;
+  margin-bottom: 6px;
+}
+.skill-card p { font-size: 13px; color: var(--muted); line-height: 1.6; }
+
+/* ── PROJECTS ── */
+.projects-list { display: flex; flex-direction: column; gap: 24px; }
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 24px;
+  align-items: start;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  position: relative; overflow: hidden;
+}
+.project-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 3px; height: 100%;
+  background: var(--accent);
+  opacity: 0; transition: opacity 0.2s;
+}
+.project-card:hover { border-color: var(--accent); box-shadow: 0 4px 24px rgba(37,99,235,0.08); }
+.project-card:hover::before { opacity: 1; }
+.project-number {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; color: var(--muted);
+  letter-spacing: 0.08em; margin-bottom: 12px;
+}
+.project-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px; margin-bottom: 10px;
+}
+.project-card p { font-size: 14px; color: var(--muted); max-width: 560px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.tag {
+  background: var(--tag-bg);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px; font-weight: 500;
+  letter-spacing: 0.06em;
+  padding: 4px 10px; border-radius: 6px;
+  color: var(--muted);
+}
+.project-status {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 6px 14px; border-radius: 100px;
+  font-size: 12px; font-weight: 500;
+  white-space: nowrap;
+}
+.status-progress {
+  background: #fef3c7; color: #92400e;
+}
+.status-done {
+  background: var(--green-light); color: var(--green);
+}
+.status-progress::before, .status-done::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+}
+.status-progress::before { background: #d97706; }
+.status-done::before { background: var(--green); }
+
+/* placeholder project */
+.project-card.placeholder {
+  border-style: dashed; opacity: 0.5;
+}
+.project-card.placeholder:hover { border-color: var(--border); box-shadow: none; }
+.project-card.placeholder::before { display: none; }
+
+/* ── ABOUT ── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 64px;
+  align-items: start;
+}
+.about-text h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px; margin-bottom: 20px; line-height: 1.2;
+}
+.about-text p { color: var(--muted); margin-bottom: 16px; }
+.about-stats {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px;
+}
+.stat-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px; padding: 24px;
+}
+.stat-box .num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px; color: var(--accent);
+}
+.stat-box .label { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+/* ── CONTACT ── */
+.contact-inner {
+  max-width: 560px;
+}
+.contact-inner h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 36px; margin-bottom: 16px;
+}
+.contact-inner p { color: var(--muted); margin-bottom: 32px; }
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-link {
+  display: flex; align-items: center; gap: 16px;
+  padding: 16px 20px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  text-decoration: none; color: var(--ink);
+  font-size: 14px; font-weight: 500;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.contact-link:hover { border-color: var(--accent); transform: translateX(4px); }
+.contact-link-icon {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: var(--accent-light); color: var(--accent);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 16px; flex-shrink: 0;
+}
+
+/* ── FOOTER ── */
+footer {
+  border-top: 1px solid var(--border);
+  text-align: center;
+  padding: 32px 48px;
+  font-family: 'DM Mono', monospace;
+  font-size: 12px; color: var(--muted);
+}
+
+@media (max-width: 768px) {
+  nav { padding: 0 24px; }
+  .hero, section { padding-left: 24px; padding-right: 24px; }
+  .hero-dots { display: none; }
+  .about-grid { grid-template-columns: 1fr; gap: 40px; }
+  .project-card { grid-template-columns: 1fr; }
+}
+
+
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+
+<nav>
+  <a class="nav-logo" href="#">IMO.dev</a>
+  <ul class="nav-links">
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-badge">Available for opportunities</div>
+    <h1>Ibrahim Malik<br/><em>Omolade</em></h1>
+    <p class="hero-bio">
+      Cloud Engineer in the making — with a frontend engineering foundation and a growing passion for AWS infrastructure, automation, and scalable cloud architecture. Building real projects, one service at a time.
+    </p>
+    <div class="hero-cta">
+      <a href="#projects" class="btn btn-primary">View Projects →</a>
+      <a href="#contact" class="btn btn-outline">Get in Touch</a>
+    </div>
+  </div>
+  <div class="hero-dots">
+    <!-- 36 dots -->
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+    <span></span><span></span><span></span><span></span><span></span><span></span>
+  </div>
+</div>
+
+<!-- SKILLS -->
+
+<section id="skills">
+  <div class="section-label">Skills & Tools</div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <div class="skill-icon">☁️</div>
+      <h3>AWS</h3>
+      <p>S3, Rekognition, IAM, EC2 — building and deploying cloud-native solutions on Amazon Web Services.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🐧</div>
+      <h3>Linux / Bash</h3>
+      <p>Comfortable in the terminal — scripting, file management, CLI tooling, and server operations.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🌐</div>
+      <h3>HTML / CSS / JS</h3>
+      <p>Frontend engineering background — building clean, accessible, and responsive web interfaces.</p>
+    </div>
+    <div class="skill-card">
+      <div class="skill-icon">🏗️</div>
+      <h3>Cloud Computing</h3>
+      <p>Understanding of cloud architecture principles, storage, compute, and managed AI/ML services.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+
+<section id="projects">
+  <div class="section-label">Projects</div>
+  <div class="projects-list">
+
+```
+<!-- Project 1 — COMPLETED -->
+<div class="project-card" style="grid-template-columns: 1fr; gap: 28px;">
+  <div style="display: flex; justify-content: space-between; align-items: start; flex-wrap: wrap; gap: 16px;">
+    <div>
+      <div class="project-number">PROJECT 01</div>
+      <h3>Image Labels Generator using Amazon Rekognition</h3>
+      <p>Built an automated image analysis pipeline using AWS Rekognition and S3. Images uploaded to an S3 bucket are processed through the Rekognition API to detect and return descriptive labels — demonstrating cloud storage, AI/ML services, and Python SDK (Boto3) integration. The model successfully identified a car image with 100% confidence across multiple labels.</p>
+      <div class="tags" style="margin-top: 16px;">
+        <span class="tag">AWS Rekognition</span>
+        <span class="tag">Amazon S3</span>
+        <span class="tag">Python</span>
+        <span class="tag">Boto3</span>
+        <span class="tag">AWS CLI</span>
+        <span class="tag">IAM</span>
+      </div>
+    </div>
+    <span class="project-status status-done">Completed ✓</span>
+  </div>
+
+  <!-- Screenshot Gallery -->
+  <div>
+    <div style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 16px;">Project Screenshots</div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 12px;">
+
+      <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);">
+        <img src="01-iam-policies.jpg" alt="IAM Policies" style="width:100%; display:block; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'"/>
+        <div style="padding: 10px 14px;">
+          <div style="font-size: 12px; font-weight: 600;">Step 1 — IAM Permissions</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">AmazonS3FullAccess & AmazonRekognitionFullAccess attached to user</div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);">
+        <img src="02-access-keys.jpg" alt="Access Keys" style="width:100%; display:block; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'"/>
+        <div style="padding: 10px 14px;">
+          <div style="font-size: 12px; font-weight: 600;">Step 2 — Access Keys Created</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">CLI access keys generated for programmatic AWS access</div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);">
+        <img src="03-aws-configure.jpg" alt="AWS Configure" style="width:100%; display:block; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'"/>
+        <div style="padding: 10px 14px;">
+          <div style="font-size: 12px; font-weight: 600;">Step 3 — AWS CLI Configured</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Region set to eu-north-1, credentials verified via aws configure list</div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);">
+        <img src="04-s3-bucket.jpg" alt="S3 Bucket" style="width:100%; display:block; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'"/>
+        <div style="padding: 10px 14px;">
+          <div style="font-size: 12px; font-weight: 600;">Step 4 — S3 Bucket Created</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">malik-rekognition-project-001 bucket created and image uploaded via CLI</div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);">
+        <img src="05-rekognition.jpg" alt="Rekognition Python Script" style="width:100%; display:block; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'"/>
+        <div style="padding: 10px 14px;">
+          <div style="font-size: 12px; font-weight: 600;">Step 5 — Python Script</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Python Boto3 script written to call the Rekognition API</div>
+        </div>
+      </div>
+
+      <div style="border: 1px solid var(--border); border-radius: 10px; overflow: hidden; background: var(--surface);">
+        <img src="06-rekognitionoutput.jpg" alt="Rekognition Output" style="width:100%; display:block; border-bottom: 1px solid var(--border);" onerror="this.style.display='none'"/>
+        <div style="padding: 10px 14px;">
+          <div style="font-size: 12px; font-weight: 600;">Step 6 — Rekognition Results</div>
+          <div style="font-size: 11px; color: var(--muted); margin-top: 2px;">Car detected with 100% confidence — Car, Coupe, Sports Car, Vehicle, Transportation</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- Project 2 — PLACEHOLDER -->
+<div class="project-card placeholder">
+  <div>
+    <div class="project-number">PROJECT 02</div>
+    <h3>Coming Soon</h3>
+    <p>Next cloud project in the pipeline. Check back soon.</p>
+    <div class="tags">
+      <span class="tag">AWS</span>
+      <span class="tag">TBD</span>
+    </div>
+  </div>
+</div>
+```
+
+  </div>
+</section>
+
+<!-- ABOUT -->
+
+<section id="about">
+  <div class="section-label">About Me</div>
+  <div class="about-grid">
+    <div class="about-text">
+      <h2>Frontend roots,<br/>cloud ambitions.</h2>
+      <p>I started my tech journey in frontend engineering — learning how to build beautiful, functional interfaces. Now I'm channelling that same hands-on approach into cloud engineering, working through real-world AWS projects to build a strong infrastructure foundation.</p>
+      <p>I believe the best way to learn cloud is to build, break, and fix things. This portfolio documents that journey — every project is a step toward becoming a well-rounded cloud engineer.</p>
+      <div style="margin-top: 28px;">
+        <a href="#projects" class="btn btn-primary">See My Work →</a>
+      </div>
+    </div>
+    <div class="about-stats">
+      <div class="stat-box">
+        <div class="num">01</div>
+        <div class="label">Cloud projects completed</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">4+</div>
+        <div class="label">AWS services explored</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">2+</div>
+        <div class="label">Years in tech</div>
+      </div>
+      <div class="stat-box">
+        <div class="num">∞</div>
+        <div class="label">Curiosity level</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+
+<section id="contact">
+  <div class="section-label">Contact</div>
+  <div class="contact-inner">
+    <h2>Let's connect.</h2>
+    <p>Open to cloud engineering roles, collaborations, and conversations about AWS and infrastructure. Feel free to reach out.</p>
+    <div class="contact-links">
+      <a href="https://github.com/ibrahimmalikce" target="_blank" class="contact-link">
+        <div class="contact-link-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+        </div>
+        GitHub — ibrahimmalikce
+      </a>
+      <a href="/cdn-cgi/l/email-protection#511833233039383c3c303d383a37243311363c30383d7f323e3c" class="contact-link">
+        <div class="contact-link-icon">✉️</div>
+        Email — <span class="__cf_email__" data-cfemail="1f567d6d7e777672727e737674796a7d5f78727e7673317c7072">[email&#160;protected]</span>
+      </a>
+      <a href="https://www.linkedin.com/in/ibrahim-malik-0ba03835b" target="_blank" class="contact-link">
+        <div class="contact-link-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 2
